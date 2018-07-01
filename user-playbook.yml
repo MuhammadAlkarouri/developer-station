@@ -1,0 +1,39 @@
+---
+- hosts: all
+  vars:
+    git_user_name: Muhammad Alkarouri
+    git_user_email: muhammad.alkarouri@eaglegenomics.com
+  tasks:
+    - name: Ensure fish config directory exists
+      file:
+        path: ~/.config/fish/functions
+        state: directory
+    - name: Install fisherman
+      uri:
+        url: https://git.io/fisher
+        dest: ~/.config/fish/functions/fisher.fish
+        creates: ~/.config/fish/functions/fisher.fish
+    - name: Change current user shell
+      user: name={{ ansible_ssh_user }} shell=/usr/bin/fish
+      become: yes
+    - name: Install fish fisherman plugins
+      command: fish -c "fisher install {{ item }}"
+      loop:
+        - "simnalamburt/cgitc"
+        - "edc/bass"
+        - "hasanozgan/theme-lambda"
+      changed_when: False
+    - name: Set user path
+      command: fish -c "if contains ~/.local/bin $fish_user_paths; echo 'Already set'; else; set -U fish_user_paths ~/.local/bin $fish_user_paths; echo 'Path updated'; end"
+      register: command_result
+      changed_when: "command_result.stdout != 'Already set'"
+    - name: Set git user name
+      git_config:
+        name: user.name
+        scope: global
+        value: "{{ git_user_name }}"
+    - name: Set git user email
+      git_config:
+        name: user.email
+        scope: global
+        value: "{{ git_user_email }}"
