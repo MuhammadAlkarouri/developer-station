@@ -21,6 +21,8 @@
       loop:
         - "simnalamburt/cgitc"
         - "edc/bass"
+        - "oh-my-fish/plugin-direnv"
+        - "zimski/ssh_agent"
         - "hasanozgan/theme-lambda"
       changed_when: False
     - name: Set user path
@@ -37,3 +39,15 @@
         name: user.email
         scope: global
         value: "{{ git_user_email }}"
+    - name: Install latest pip3
+      pip:
+        name: pip
+        executable: pip3
+        extra_args: --user
+        state: latest
+    - name: Install some pip packages
+      pip:
+        name: pre-commit
+        executable: ~/.local/bin/pip
+        extra_args: --user
+        state: latest
