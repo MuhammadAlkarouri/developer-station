@@ -6,17 +6,22 @@
         name:
           - cargo
           - direnv
+          - etcd
           - exa
           - fish
           - git
+          - kubernetes
+          - pipenv
+          - python3-black
           - python3-ipython
+          - python3-isort
+          - python37
           - powerline
+          - ranger
+          - ripgrep
           - rust
           - tmux
           - tokei
-          - python3-black
-          - python3-isort
-          - python37
         state: latest
     - name: Enable kakoune copr repository
       command: "dnf copr enable -y jkonecny/kakoune"
