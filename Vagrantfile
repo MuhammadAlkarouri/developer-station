@@ -20,4 +20,7 @@ Vagrant.configure("2") do |config|
     ansible.become = false
     ansible.compatibility_mode = "2.0"
   end
+
+  config.vm.provision "file", source: ".tmux.conf", destination: "$HOME/"
+  config.vm.provision "file", source: "~/.ssh/id_rsa", destination: "$HOME/.ssh/id_rsa"
 end
