@@ -51,3 +51,18 @@
         executable: ~/.local/bin/pip
         extra_args: --user
         state: latest
+    - name: Ensure relevant directories exist
+      file:
+        path: "{{ item }}"
+        state: directory
+        recurse: yes
+      loop:
+        - "~/.config/kak"
+    - name: Copy various configurations
+      copy:
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+      loop:
+        - { src: "kakrc", dest: "~/.config/kak/kakrc" }
+        - { src: ".tmux.conf", dest: "~/.tmux.conf" }
+

@@ -10,6 +10,7 @@
           - exa
           - fish
           - git
+          - libselinux-python
           - kubernetes
           - pipenv
           - python3-black

@@ -6,7 +6,7 @@ Vagrant.configure("2") do |config|
   config.vm.synced_folder "/Users/malkarouri/Projects/", "/Projects", type: "virtualbox"
 
   config.vm.provider "virtualbox" do |vb|
-    vb.memory = "1024"
+    vb.memory = "4096"
   end
 
   config.vm.provision "ansible_local", run: "always" do |ansible|
@@ -21,6 +21,5 @@ Vagrant.configure("2") do |config|
     ansible.compatibility_mode = "2.0"
   end
 
-  config.vm.provision "file", source: ".tmux.conf", destination: "$HOME/"
   config.vm.provision "file", source: "~/.ssh/id_rsa", destination: "$HOME/.ssh/id_rsa"
 end
