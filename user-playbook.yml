@@ -58,6 +58,10 @@
         recurse: yes
       loop:
         - "~/.config/kak"
+    - name: Install tmux package manager
+      git:
+        repo: https://github.com/tmux-plugins/tpm
+        dest: "~/.tmux/plugins/tpm"
     - name: Copy various configurations
       copy:
         src: "{{ item.src }}"
