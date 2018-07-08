@@ -10,6 +10,7 @@
           - exa
           - fish
           - git
+          - lastpass-cli
           - libselinux-python
           - kubernetes
           - pipenv
@@ -18,6 +19,7 @@
           - python3-isort
           - python37
           - powerline
+          - powerline-fonts
           - ranger
           - ripgrep
           - rust
