@@ -73,4 +73,3 @@
       loop:
         - { src: "kakrc", dest: "~/.config/kak/kakrc" }
         - { src: ".tmux.conf", dest: "~/.tmux.conf" }
-        - { src: "gpg-agent.init.fish", dest: "~/.config/fish/conf.d/gpg-agent.init.fish" }
