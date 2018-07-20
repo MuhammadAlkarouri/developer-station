@@ -8,8 +8,12 @@
           - direnv
           - etcd
           - exa
+          - fd-find
           - fish
+          - fzf
           - git
+          - httpie
+          - hub
           - lastpass-cli
           - libselinux-python
           - kubernetes
@@ -17,6 +21,7 @@
           - python3-black
           - python3-ipython
           - python3-isort
+          - python3-pygments
           - python37
           - powerline
           - powerline-fonts
@@ -24,7 +29,9 @@
           - ripgrep
           - rust
           - tmux
+          - tmux-powerline
           - tokei
+          - ykclient
         state: latest
     - name: Enable kakoune copr repository
       command: "dnf copr enable -y jkonecny/kakoune"

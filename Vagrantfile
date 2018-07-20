@@ -8,6 +8,12 @@ Vagrant.configure("2") do |config|
     end
   end
 
+  config.vm.provider "virtualbox" do |vb|
+    vb.customize ["modifyvm", :id, "--usb", "on"]
+#    vb.customize ['usbfilter', 'add', '0', '--target', :id, '--name', 'Broadcom Corp. Bluetooth USB Host Controller [0158]', '--vendorid', '0x05ac', '--productid', '0x8290']
+#    vb.customize ['usbfilter', 'add', '0', '--target', :id, '--name', 'Apple Inc. Apple Internal Keyboard / Trackpad [0624]', '--vendorid', '0x05ac', '--productid', '0x0274']
+  end
+
   config.vm.box = "fedora/28-cloud-base"
   config.vbguest.auto_update = true
   config.vbguest.auto_reboot = true

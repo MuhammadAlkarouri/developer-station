@@ -1,0 +1,32 @@
+---
+- name: Create user systemd config directory
+  file:
+    path: ~/.config/systemd/user
+    state: directory
+- name: Identify systemd service files of gnupg2
+  find:
+    paths: /usr/share/doc/gnupg2/examples/systemd-user
+    patterns: '*.service'
+  register: gpg_systemd_services
+- name: Identify systemd socket files of gnupg2
+  find:
+    paths: /usr/share/doc/gnupg2/examples/systemd-user
+    patterns: '*.socket'
+  register: gpg_systemd_sockets
+- name: Copy systemd gpg unit files to user
+  copy:
+    src: "{{ item.path }}"
+    dest: ~/.config/systemd/user
+    remote_src: yes
+  loop: "{{ gpg_systemd_services.files + gpg_systemd_sockets.files }}"
+- name: Reload systemd user config
+  systemd:
+    daemon_reload: yes
+    user: yes
+- name: Enable and start gnupg2 user sockets
+  systemd:
+    user: yes
+    name: "{{ item.path | basename }}"
+    enabled: yes
+    state: started
+  loop: "{{ gpg_systemd_sockets.files }}"

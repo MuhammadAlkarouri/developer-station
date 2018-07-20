@@ -3,6 +3,8 @@
   vars:
     git_user_name: Muhammad Alkarouri
     git_user_email: muhammad.alkarouri@eaglegenomics.com
+  roles:
+    - gpg-agent
   tasks:
     - name: Ensure fish config directory exists
       file:
@@ -22,7 +24,6 @@
         - "simnalamburt/cgitc"
         - "edc/bass"
         - "oh-my-fish/plugin-direnv"
-        - "zimski/ssh_agent"
         - "hasanozgan/theme-lambda"
       changed_when: False
     - name: Set user path
@@ -51,6 +52,9 @@
         executable: ~/.local/bin/pip
         extra_args: --user
         state: latest
+      loop:
+        - "pre-commit"
+        - "cloudsmith-cli"
     - name: Ensure relevant directories exist
       file:
         path: "{{ item }}"
@@ -69,4 +73,4 @@
       loop:
         - { src: "kakrc", dest: "~/.config/kak/kakrc" }
         - { src: ".tmux.conf", dest: "~/.tmux.conf" }
-
+        - { src: "gpg-agent.init.fish", dest: "~/.config/fish/conf.d/gpg-agent.init.fish" }
