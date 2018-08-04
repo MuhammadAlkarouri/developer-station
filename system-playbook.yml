@@ -31,6 +31,7 @@
           - tmux
           - tmux-powerline
           - tokei
+          - usbutils
           - ykclient
         state: latest
     - name: Enable kakoune copr repository

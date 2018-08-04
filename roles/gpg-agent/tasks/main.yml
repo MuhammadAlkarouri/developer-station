@@ -31,6 +31,10 @@
     state: started
   loop: "{{ gpg_systemd_sockets.files }}"
 - name: Copy fish configuration
-  copy:
-    src: gpg-agent.init.fish
-    dest: ~/.config/fish/conf.d/gpg-agent.init.fish
+  block:
+    - file:
+        path: ~/.config/fish/conf.d
+        state: directory
+    - copy:
+        src: gpg-agent.init.fish
+        dest: ~/.config/fish/conf.d/gpg-agent.init.fish

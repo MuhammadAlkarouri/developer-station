@@ -14,6 +14,10 @@ Vagrant.configure("2") do |config|
 #    vb.customize ['usbfilter', 'add', '0', '--target', :id, '--name', 'Apple Inc. Apple Internal Keyboard / Trackpad [0624]', '--vendorid', '0x05ac', '--productid', '0x0274']
   end
 
+
+#  config.landrush.enabled = true
+#  config.vm.hostname = "develop.vagrant.test"
+
   config.vm.box = "fedora/28-cloud-base"
   config.vbguest.auto_update = true
   config.vbguest.auto_reboot = true
