@@ -19,16 +19,13 @@
     dest: ~/.config/systemd/user
     remote_src: yes
   loop: "{{ gpg_systemd_services.files + gpg_systemd_sockets.files }}"
-- name: Reload systemd user config
-  systemd:
-    daemon_reload: yes
-    user: yes
 - name: Enable and start gnupg2 user sockets
   systemd:
     user: yes
     name: "{{ item.path | basename }}"
     enabled: yes
     state: started
+    daemon_reload: yes
   loop: "{{ gpg_systemd_sockets.files }}"
 - name: Copy fish configuration
   block:

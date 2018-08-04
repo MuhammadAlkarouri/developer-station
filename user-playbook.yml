@@ -19,13 +19,14 @@
       user: name={{ ansible_ssh_user }} shell=/usr/bin/fish
       become: yes
     - name: Install fish fisherman plugins
-      command: fish -c "fisher install {{ item }}"
+      command: fish -c "fisher install {{ item.name }}"
+      args:
+        creates: "{{ item.path }}"
       loop:
-        - "simnalamburt/cgitc"
-        - "edc/bass"
-        - "oh-my-fish/plugin-direnv"
-        - "hasanozgan/theme-lambda"
-      changed_when: False
+        - { name: "simnalamburt/cgitc", path: "~/.config/fisherman/cgitc" }
+        - { name: "edc/bass", path: "~/.config/fisherman/bass" }
+        - { name: "oh-my-fish/plugin-direnv", path: "~/.config/fisherman/direnv" }
+        - { name: "hasanozgan/theme-lambda", path: "~/.config/fisherman/lambda" }
     - name: Set user path
       command: fish -c "if contains ~/.local/bin $fish_user_paths; echo 'Already set'; else; set -U fish_user_paths ~/.local/bin $fish_user_paths; echo 'Path updated'; end"
       register: command_result
@@ -48,7 +49,7 @@
         state: latest
     - name: Install some pip packages
       pip:
-        name: pre-commit
+        name: "{{ item }}"
         executable: ~/.local/bin/pip
         extra_args: --user
         state: latest

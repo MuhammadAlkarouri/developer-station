@@ -12,6 +12,7 @@
           - fish
           - fzf
           - git
+          - gnupg2
           - httpie
           - hub
           - lastpass-cli

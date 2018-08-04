@@ -2,11 +2,6 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
-  class Installer < VagrantVbguest::Installers::Fedora
-    def dependencies
-      "elfutils-libelf-devel kernel-headers-`uname -r` #{super}"
-    end
-  end
 
   config.vm.provider "virtualbox" do |vb|
     vb.customize ["modifyvm", :id, "--usb", "on"]
@@ -15,13 +10,12 @@ Vagrant.configure("2") do |config|
   end
 
 
-#  config.landrush.enabled = true
-#  config.vm.hostname = "develop.vagrant.test"
+  config.landrush.enabled = true
+  config.vm.hostname = "develop.vagrant.test"
 
-  config.vm.box = "fedora/28-cloud-base"
+  config.vm.box = "bento/fedora-28"
   config.vbguest.auto_update = true
   config.vbguest.auto_reboot = true
-  config.vbguest.installer = Installer
 
   config.vm.synced_folder "/Users/malkarouri/Projects/", "/Projects", type: "virtualbox"
 
