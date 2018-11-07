@@ -19,7 +19,7 @@
       user: name={{ ansible_ssh_user }} shell=/usr/bin/fish
       become: yes
     - name: Install fish fisherman plugins
-      command: fish -c "fisher install {{ item.name }}"
+      command: fish -c "fisher add {{ item.name }}"
       args:
         creates: "{{ item.path }}"
       loop:

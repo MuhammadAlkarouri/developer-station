@@ -21,7 +21,7 @@
   loop: "{{ gpg_systemd_services.files + gpg_systemd_sockets.files }}"
 - name: Enable and start gnupg2 user sockets
   systemd:
-    user: yes
+    scope: user
     name: "{{ item.path | basename }}"
     enabled: yes
     state: started

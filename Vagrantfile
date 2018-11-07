@@ -12,6 +12,7 @@ Vagrant.configure("2") do |config|
 
   config.landrush.enabled = true
   config.vm.hostname = "develop.vagrant.test"
+  config.landrush.host "home.vagrant.test", "10.0.2.2"
 
   config.vm.box = "bento/fedora-28"
   config.vbguest.auto_update = true

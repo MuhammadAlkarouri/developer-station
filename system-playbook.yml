@@ -18,6 +18,7 @@
           - lastpass-cli
           - libselinux-python
           - kubernetes
+          - mkdocs
           - pipenv
           - python3-black
           - python3-ipython
