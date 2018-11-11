@@ -10,23 +10,30 @@
       file:
         path: ~/.config/fish/functions
         state: directory
-    - name: Install fisherman
-      uri:
-        url: https://git.io/fisher
-        dest: ~/.config/fish/functions/fisher.fish
-        creates: ~/.config/fish/functions/fisher.fish
+    - name: Check if Oh My Fish is installed
+      stat:
+        path: /home/vagrant/.local/share/omf
+      register: omf_share
+    - name: Install Oh My Fish
+      block:
+        - get_url:
+            url: https://get.oh-my.fish
+            dest: /tmp/omf-install
+            mode: 0555
+        - command: fish /tmp/omf-install --noninteractive
+      when: not omf_share.stat.exists
     - name: Change current user shell
       user: name={{ ansible_ssh_user }} shell=/usr/bin/fish
       become: yes
-    - name: Install fish fisherman plugins
-      command: fish -c "fisher add {{ item.name }}"
+    - name: Install fish omf plugins
+      command: fish -c "omf install {{ item.name }}"
       args:
-        creates: "{{ item.path }}"
+        creates: "~/.local/share/omf/{{ item.path }}"
       loop:
-        - { name: "simnalamburt/cgitc", path: "~/.config/fisherman/cgitc" }
-        - { name: "edc/bass", path: "~/.config/fisherman/bass" }
-        - { name: "oh-my-fish/plugin-direnv", path: "~/.config/fisherman/direnv" }
-        - { name: "hasanozgan/theme-lambda", path: "~/.config/fisherman/lambda" }
+        - { name: "https://github.com/simnalamburt/cgitc", path: "pkg/cgitc" }
+        - { name: "bass", path: "pkg/bass" }
+        - { name: "direnv", path: "pkg/direnv" }
+        - { name: "lambda", path: "themes/lambda" }
     - name: Set user path
       command: fish -c "if contains ~/.local/bin $fish_user_paths; echo 'Already set'; else; set -U fish_user_paths ~/.local/bin $fish_user_paths; echo 'Path updated'; end"
       register: command_result
